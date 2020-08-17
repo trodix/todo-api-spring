@@ -6,25 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AccessLevel;
+
 @Entity
+@Getter @Setter	
 public class Todo {
 	
+	@Setter(AccessLevel.PROTECTED)
 	@Id @GeneratedValue
-	UUID id;
+	private UUID id;
 	
-	String title;
+	private String title;
 
-
-	public UUID getId() {
-		return id;
-    }
-    
-	public String getTitle() {
-		return title;
-    }
-    
-	public Todo setTitle(String title) {
-		this.title = title;
-		return this;
-	}
 }
