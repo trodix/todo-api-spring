@@ -1,4 +1,4 @@
-package com.trodix.exempleapp.model;
+package com.trodix.exempleapp.model.request;
 
 import lombok.Data;
 

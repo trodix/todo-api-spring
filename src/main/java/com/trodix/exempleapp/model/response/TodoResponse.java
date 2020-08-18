@@ -1,4 +1,4 @@
-package com.trodix.exempleapp.model;
+package com.trodix.exempleapp.model.response;
 
 import java.util.UUID;
 
