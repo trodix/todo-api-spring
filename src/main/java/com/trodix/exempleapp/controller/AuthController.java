@@ -20,7 +20,6 @@ import com.trodix.exempleapp.security.jwt.JwtUtils;
 import com.trodix.exempleapp.security.service.UserDetailsImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -92,22 +91,24 @@ public class AuthController {
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
+
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new BadRequestException("Error: Role is not found."));
                         roles.add(adminRole);
-
                         break;
-                    case "mod":
+
+                    case "moderator":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new BadRequestException("Error: Role is not found."));
                         roles.add(modRole);
-
                         break;
+
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new BadRequestException("Error: Role is not found."));
                         roles.add(userRole);
+
 				}
 			});
 		}

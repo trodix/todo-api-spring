@@ -2,6 +2,9 @@ package com.trodix.exempleapp.exception;
 
 import java.util.Date;
 
+/**
+ * Build custom error payload for a custom error response
+ */
 public class ErrorDetails {
 
     private Date timestamp;
