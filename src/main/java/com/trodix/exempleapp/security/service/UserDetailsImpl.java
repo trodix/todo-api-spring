@@ -22,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String email;
 
-	@JsonIgnore // TODO use model response
+	@JsonIgnore
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;

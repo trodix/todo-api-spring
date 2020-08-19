@@ -1,14 +1,20 @@
 package com.trodix.exempleapp.exception;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -62,8 +68,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public void handleBadCredentialsException(BadCredentialsException exception, HttpServletResponse response) 
         throws IOException {
         
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public void handleUnauthorizedException(UnauthorizedException exception, HttpServletResponse response) 
+    throws IOException {
+    
+    response.sendError(HttpStatus.UNAUTHORIZED.value(), exception.getMessage());
+}
 
 
     /**
@@ -77,6 +90,24 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         throws IOException {
         
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    /**
+     * Handle validation exceptions
+     * @param exception
+     * @param response
+     * @throws IOException
+     */
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errorList = ex
+                .getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> fieldError.getDefaultMessage())
+                .collect(Collectors.toList());
+        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errorList);
+        return handleExceptionInternal(ex, errorDetails, headers, errorDetails.getStatus(), request);
     }
 
 

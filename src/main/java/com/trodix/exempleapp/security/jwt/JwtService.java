@@ -18,14 +18,14 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
-public class JwtUtils {
-	private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+public class JwtService {
+	private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
 	@Value("${app.jwt-secret}")
 	private String jwtSecret;
 
-	@Value("${app.jwt-expiration-ms}")
-	private int jwtExpirationMs;
+	@Value("${app.jwt-expiration-sec}")
+	private int jwtExpirationSec;
 
 	public String generateJwtToken(Authentication authentication) {
 
@@ -34,7 +34,17 @@ public class JwtUtils {
 		return Jwts.builder()
 				.setSubject((userPrincipal.getUsername()))
 				.setIssuedAt(new Date())
-				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationSec * 1000))
+				.signWith(SignatureAlgorithm.HS512, jwtSecret)
+				.compact();
+	}
+
+	public String generateJwtTokenWithUsername(String username) {
+
+		return Jwts.builder()
+				.setSubject(username)
+				.setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + jwtExpirationSec * 1000))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();
 	}

@@ -1,44 +1,34 @@
 package com.trodix.exempleapp.exception;
 
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+
+import lombok.Data;
 
 /**
  * Build custom error payload for a custom error response
  */
+@Data
 public class ErrorDetails {
 
-    private Date timestamp;
+    private HttpStatus status;
     private String message;
-    private String details;
+    private List<String> errors;
 
-    public ErrorDetails(Date timestamp, String message, String details) {
-        this.timestamp = timestamp;
+    public ErrorDetails(HttpStatus status, String message, List<String> errors) {
+        super();
+        this.status = status;
         this.message = message;
-        this.details = details;
+        this.errors = errors;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
+    public ErrorDetails(HttpStatus status, String message, String error) {
+        super();
+        this.status = status;
         this.message = message;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
+        errors = Arrays.asList(error);
     }
     
 }
