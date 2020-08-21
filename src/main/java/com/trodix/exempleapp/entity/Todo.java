@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,8 @@ public class Todo {
 	private UUID id;
 	
 	private String title;
+
+	@ManyToOne
+	private User user;
 
 }

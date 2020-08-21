@@ -9,5 +9,6 @@ public class TodoResponse {
     
     private UUID id;
     private String title;
+    private UserPublicResponse user;
 
 }
