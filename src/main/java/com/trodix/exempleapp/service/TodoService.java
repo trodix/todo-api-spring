@@ -23,12 +23,9 @@ public class TodoService {
     @Autowired
     private final UserDetailsServiceImpl userDetailsService;
 
-    private Authentication authentication;
-
     public TodoService(TodoRepository todoRepository, UserDetailsServiceImpl userDetailsService) {
         this.todoRepository = todoRepository;
         this.userDetailsService = userDetailsService;
-        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     public Optional<Todo> getOne(UUID id) {
@@ -40,11 +37,12 @@ public class TodoService {
     }
 
     public Todo create(Todo todo) {
-        String currentPrincipalName = this.authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
 
         User user = userDetailsService.loadUserEntityByUsername(currentPrincipalName);
         todo.setUser(user);
-        
+
         return this.todoRepository.save(todo);
     }
 
