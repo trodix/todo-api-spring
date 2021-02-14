@@ -87,13 +87,7 @@ public class AuthService {
 
     public void logout(LogoutRequest logoutRequest) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		UserDetailsImpl currentUser = (UserDetailsImpl) authentication.getPrincipal();
-
-		refreshTokenService.validateRefreshToken(logoutRequest.getRefreshToken(), currentUser.getUsername());
 		refreshTokenService.deleteRefreshToken(logoutRequest.getRefreshToken());
-
     }
     
     public void registerUser(SignupRequest signupRequest) {

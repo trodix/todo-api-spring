@@ -13,5 +13,5 @@ public class LogoutRequest {
 
     @NotBlank
     private String refreshToken;
-
+    
 }
