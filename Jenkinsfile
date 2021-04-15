@@ -15,17 +15,17 @@ pipeline {
                 sh 'mvn verify'
             }
         }
-        // stage('Publish') { 
-        //     when {
-        //       anyOf {
-        //         branch 'develop'
-        //         branch 'rc*'
-        //       }
-        //     }
-        //     steps {
-        //         sh "mvn deploy -DskipTests"
-        //     }
-        // }
+        stage('Deploy') { 
+            when {
+              anyOf {
+                branch 'develop'
+                branch 'rc*'
+              }
+            }
+            steps {
+                sh "mvn deploy -DskipTests"
+            }
+        }
     }
     post {
         cleanup {
