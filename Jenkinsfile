@@ -17,13 +17,14 @@ pipeline {
         }
         stage('Deploy') { 
             when {
-              anyOf {
-                branch 'develop'
-                branch 'rc*'
-              }
+                anyOf {
+                    branch 'master'
+                    branch 'develop'
+                    branch 'rc*'
+                }
             }
             steps {
-                sh "mvn deploy -DskipTests"
+                deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://tomcat.home:8080')], contextPath: null, onFailure: false, war: '**/*.war'
             }
         }
     }
