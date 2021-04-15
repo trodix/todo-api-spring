@@ -1,33 +1,45 @@
-pipeline{
-
-    agent {
-        docker {
-            image 'maven:3-alpine' 
-            args '-v /root/.m2:/root/.m2' 
-        }
+pipeline {
+    agent any
+    tools {
+      maven 'MAVEN'
+      jdk 'JDK8'
     }
-
     stages {
-        
-        stage("build") {
+        stage("Build") {
             steps {
-                echo "======== executing build ========"
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn clean compile'
             }
         }
-
-        stage("test") {
+        stage("Package & Test") {
             steps {
-                echo "======== executing test ========"
-                sh 'mvn -B test'
+                sh 'mvn verify'
             }
         }
-
-        stage("deploy") {
-            steps {
-                echo "======== executing deploy ========"
-            }
+        // stage('Publish') { 
+        //     when {
+        //       anyOf {
+        //         branch 'develop'
+        //         branch 'rc*'
+        //       }
+        //     }
+        //     steps {
+        //         sh "mvn deploy -DskipTests"
+        //     }
+        // }
+    }
+    post {
+        cleanup {
+            cleanWs(skipWhenFailed : true)
         }
-
+        failure {
+            emailext body: "<html>FAIL : ${env.JOB_NAME} build ${env.BUILD_NUMBER}<br/>${env.BUILD_URL}</html>",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                subject: "FAIL : ${env.JOB_NAME}"
+        }
+        unstable {
+            emailext body: "<html>INSTABLE : ${env.JOB_NAME} build ${env.BUILD_NUMBER}<br/>${env.BUILD_URL}</html>",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                subject: "SUCCESS: ${env.JOB_NAME}"
+        }
     }
 }
