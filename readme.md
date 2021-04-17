@@ -4,7 +4,7 @@
 
 ## Development setup
 
-You can configure development properties in `resources/application-dev.properties` file.
+You can configure development properties in `src/resources/application-dev.properties` file.
 
 ### Database
 
@@ -66,9 +66,9 @@ Postman tests are available at [./src/test/resources](./src/test/resources)
 
     `chown -R todoapi:todoapi /opt/todoapi`
 
-6. Create a systemd service
+6. Create a systemd service in `/etc/systemd/system/todoapi.service` file
 
-    ```conf
+    ```properties
     [Unit]
     Description=Todo SpringBoot Api
     After=syslog.target
