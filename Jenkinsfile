@@ -1,3 +1,13 @@
+def remote = [:]
+    remote.name = "tomcat"
+    remote.host = "tomcat.home"
+    remote.allowAnyHosts = true
+
+withCredentials([usernamePassword(credentialsId: 'ssh_default_user', usernameVariable: 'username', passwordVariable: 'password')]) {
+    remote.user = username
+    remote.password = password
+}
+
 pipeline {
     agent any
     tools {
@@ -15,22 +25,29 @@ pipeline {
                 sh 'mvn verify'
             }
         }
-        stage('Deploy') { 
+        stage("Deploy") {
             when {
                 anyOf {
-                    branch 'master'
                     branch 'develop'
                     branch 'rc*'
+                    branch 'feature/*'
                 }
             }
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat', path: '', url: 'http://tomcat.home:8080')], contextPath: null, onFailure: false, war: '**/*.war'
+                sshCommand remote: remote, command: 'mkdir -p /tmp/jenkins_tmp'
+
+                sshPut remote: remote, from: './target/', into: '/tmp/jenkins_tmp'
+                sshPut remote: remote, from: './deployment/', into: '/tmp/jenkins_tmp'
+                sshCommand remote: remote, command: 'chmod +x /tmp/jenkins_tmp/deployment/install.sh'
+                sshCommand remote: remote, command: '/tmp/jenkins_tmp/deployment/install.sh', sudo: true
+
+                sshCommand remote: remote, command: 'rm -rf /tmp/jenkins_tmp'
             }
         }
     }
     post {
         cleanup {
-            cleanWs(skipWhenFailed : true)
+            cleanWs(skipWhenFailed: true)
         }
         failure {
             emailext body: "<html>FAIL : ${env.JOB_NAME} build ${env.BUILD_NUMBER}<br/>${env.BUILD_URL}</html>",
