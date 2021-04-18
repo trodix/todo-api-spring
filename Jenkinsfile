@@ -41,7 +41,7 @@ pipeline {
                 sshCommand remote: remote, command: 'chmod +x /tmp/jenkins_tmp/deployment/install.sh'
                 sshCommand remote: remote, command: '/tmp/jenkins_tmp/deployment/install.sh', sudo: true
 
-                sshCommand remote: remote, command: 'rm -rf /tmp/jenkins_tmp'
+                sshCommand remote: remote, command: 'rm -rf /tmp/jenkins_tmp', sudo: true
             }
         }
     }
