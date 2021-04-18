@@ -16,6 +16,9 @@ target/
 ### Dev Database ###
 data/
 
+### Log4j ###
+logs/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
