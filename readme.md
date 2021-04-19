@@ -14,13 +14,13 @@ By default, a H2 in memory database is used for development purposes.
 
 Run the app with maven: `mvn spring-boot:run`
 
-You can access the app at <http://localhost:8000/v1>
+You can access the api at <http://localhost:8000/api>
 
 ### Swagger documentation
 
-For specs, go to <http://localhost:8000/v1/api-docs>
+For specs, go to <http://localhost:8000/v2/api-docs>
 
-For Swagger UI, go to <http://localhost:8000/v1/swagger-ui/index.html>
+For Swagger UI, go to <http://localhost:8000/swagger-ui/>
 
 ## Tests
 
