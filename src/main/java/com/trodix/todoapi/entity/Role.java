@@ -19,6 +19,10 @@ import lombok.AccessLevel;
 @Table(name = "roles")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Role {
+
+    public Role(ERole role) {
+        this.name = role;
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
