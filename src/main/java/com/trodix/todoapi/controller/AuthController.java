@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/public/auth")
+@RequestMapping("/api/public/auth")
 public class AuthController {
 
 	@Autowired

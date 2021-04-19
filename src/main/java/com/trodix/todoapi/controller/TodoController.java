@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
  * TodosController
  */
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("/api/todos")
 @RequiredArgsConstructor
 public class TodoController {
 
