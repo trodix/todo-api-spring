@@ -5,10 +5,8 @@ import java.util.UUID;
 import com.trodix.todoapi.entity.Todo;
 import com.trodix.todoapi.exception.ResourceNotFoundException;
 import com.trodix.todoapi.mapping.TodoMapper;
-import com.trodix.todoapi.mapping.UserMapper;
 import com.trodix.todoapi.model.request.TodoRequest;
 import com.trodix.todoapi.model.response.TodoResponse;
-import com.trodix.todoapi.model.response.UserPublicResponse;
 import com.trodix.todoapi.service.TodoService;
 
 import org.springframework.beans.factory.annotation.Autowired;

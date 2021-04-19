@@ -48,6 +48,8 @@ public class User {
 
 	private String password;
 
+    private boolean enabled;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
@@ -61,6 +63,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.enabled = true;
+    }
+
+    public User(String username, String email, String password, boolean enabled) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
     }
      
 }

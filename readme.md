@@ -4,7 +4,7 @@
 
 ## Development setup
 
-You can configure development properties in `src/resources/application-dev.properties` file.
+You can configure development properties in **src/resources/application-dev.properties** file.
 
 ### Database
 
@@ -28,15 +28,15 @@ Postman tests are available at [./src/test/resources](./src/test/resources)
 
 ## Installation
 
-1. Build the project to generate the `.jar` file
+1. Build the project to generate the **.jar** file
 
    `mvn clean install`
 
-2. Copy the `target/todoapi.jar` file to the serveur
+2. Copy the **target/todoapi.jar** file to the serveur
 
     `scp -p target/todoapi.jar root@myserver:/opt/todoapi/todoapi.jar`
 
-3. Create a `application.properties` file at `/opt/todoapi` with production credentials
+3. Create a **application.properties** file at **/opt/todoapi** with production credentials
 
     ```properties
     spring.profiles.active=prod
@@ -66,7 +66,7 @@ Postman tests are available at [./src/test/resources](./src/test/resources)
 
     `chown -R todoapi:todoapi /opt/todoapi`
 
-6. Create a systemd service in `/etc/systemd/system/todoapi.service` file
+6. Create a systemd service in **/etc/systemd/system/todoapi.service** file
 
     ```properties
     [Unit]
@@ -89,3 +89,36 @@ Postman tests are available at [./src/test/resources](./src/test/resources)
 8. Start the service
 
     `service todoapi start`
+
+## Default User
+
+When the application run for the first time, a default user will be generated.
+
+The default user email is: `admin@example.com`
+
+The default username is: `admin`
+
+The default user roles are: `admin`, corresponding to the **ROLE_ADMIN** ERole enum.
+
+You can override this values in your **application.properties** file:
+
+```properties
+# ===============================
+# = Default admin credentials
+# ===============================
+app.default-user.username = admin
+app.default-user.email = admin@exemple.com
+app.default-user.roles = admin
+```
+
+The default password is auto-generated and availlable in the logs of the application:
+
+Example of output: 
+
+```log
+=============== Default credentials are: admin / 62e3766b-934f-4db8-a22a-245eafb220f4 ===============
+```
+
+In production environment, you can get the default credentials log by running this command:
+
+`journalctl -u todoapi.service | grep "Default credentials"`
