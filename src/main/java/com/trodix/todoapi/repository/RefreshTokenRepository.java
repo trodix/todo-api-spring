@@ -14,6 +14,9 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
 
     Optional<RefreshToken> findByToken(String token);
 
+    @Query("SELECT t FROM RefreshToken t JOIN t.user u WHERE u.username = :username")
+    Optional<RefreshToken> findByUsername(@Param("username") String username);
+
     @Query("SELECT t FROM RefreshToken t JOIN t.user u WHERE t.token = :token AND u.username = :username")
     Optional<RefreshToken> findByTokenAndUsername(@Param("token") String token, @Param("username") String username);
 
