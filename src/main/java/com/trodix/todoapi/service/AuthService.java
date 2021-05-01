@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.trodix.todoapi.entity.ERole;
+import com.trodix.todoapi.entity.RefreshToken;
 import com.trodix.todoapi.entity.Role;
 import com.trodix.todoapi.entity.User;
 import com.trodix.todoapi.exception.BadRequestException;
@@ -84,7 +85,15 @@ public class AuthService {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
-		String refreshToken = refreshTokenService.generateRefreshToken(authentication).getToken();
+
+        RefreshToken userRefreshToken = this.refreshTokenService.getToken(loginRequest.getUsername());
+        String refreshToken = null;
+
+        if (userRefreshToken == null) {
+            refreshToken = refreshTokenService.generateRefreshToken(authentication).getToken();
+        } else {
+            refreshToken = userRefreshToken.getToken();
+        }
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
 		List<String> roles = userDetails.getAuthorities().stream()

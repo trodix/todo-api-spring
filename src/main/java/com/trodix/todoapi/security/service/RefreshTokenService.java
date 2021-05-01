@@ -48,6 +48,10 @@ public class RefreshTokenService {
             .orElseThrow(() -> new UnauthorizedException("Invalid refresh token"));
     }
 
+    public RefreshToken getToken(String username) {
+        return refreshTokenRepository.findByUsername(username).orElse(null);
+    }
+
     public void deleteRefreshToken(String refreshToken) {
         refreshTokenRepository.deleteByToken(refreshToken);
     }
