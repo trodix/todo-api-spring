@@ -1,6 +1,9 @@
 # Todo Api Spring
 
+[![Todo API Spring Actions Status](https://github.com/trodix/todo-api-spring/actions/workflows/maven.yml/badge.svg)](https://github.com/trodix/todo-api-spring/actions)
+
 > This project provide a SpringBoot starter for REST APIs with a Todo dummy app as example.
+
 
 ## Development setup
 
