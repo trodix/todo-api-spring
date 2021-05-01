@@ -15,6 +15,7 @@ target/
 
 ### Dev Database ###
 data/
+!**/src/test/**/data/
 
 ### Log4j ###
 logs/
