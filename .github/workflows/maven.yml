@@ -13,9 +13,7 @@ on:
       - rc*
       - release/*
       - master
-      - develop
-  workflow_run:
-    
+      - develop    
 
 jobs:
   build:
