@@ -1,5 +1,7 @@
 package com.trodix.todoapi.security.config;
 
+import java.util.Arrays;
+
 import com.trodix.todoapi.security.jwt.AuthEntryPointJwt;
 import com.trodix.todoapi.security.jwt.AuthTokenFilter;
 import com.trodix.todoapi.security.service.RoleService;
@@ -71,7 +73,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/api/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration config = new CorsConfiguration();
+		config.applyPermitDefaultValues();
+		config.setAllowedMethods(
+			Arrays.asList(new String[]{ "GET", "POST", "PUT", "DELETE" })
+		);
+		source.registerCorsConfiguration(
+			"/api/**", 
+			config
+		);
 		return source;
 	}
 
