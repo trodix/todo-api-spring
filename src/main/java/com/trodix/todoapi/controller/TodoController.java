@@ -9,6 +9,8 @@ import com.trodix.todoapi.model.request.TodoRequest;
 import com.trodix.todoapi.model.response.TodoResponse;
 import com.trodix.todoapi.service.TodoService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +34,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor
 public class TodoController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
     @Autowired
     private final TodoService todoService;
@@ -67,11 +71,9 @@ public class TodoController {
     @ResponseStatus(HttpStatus.CREATED)
     public TodoResponse create(@RequestBody TodoRequest todoRequest) {
         Todo todo = todoMapper.modelToEntity(todoRequest);
-
         todo = todoService.create(todo);
-
         TodoResponse response = todoMapper.entityToModel(todo);
-
+        
         return response;
     }
 

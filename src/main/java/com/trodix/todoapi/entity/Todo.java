@@ -22,6 +22,8 @@ public class Todo {
 	
 	private String title;
 
+	private Boolean done = false;
+
 	@ManyToOne
 	private User user;
 

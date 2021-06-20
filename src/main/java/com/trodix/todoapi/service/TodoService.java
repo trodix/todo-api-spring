@@ -52,6 +52,7 @@ public class TodoService {
 
         // Update the object fields
         existingTodo.setTitle(todo.getTitle());
+        existingTodo.setDone(todo.getDone());
 
         return this.todoRepository.save(existingTodo);
     }
