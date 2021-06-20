@@ -1,4 +1,4 @@
-package com.trodix.todoapi.entity;
+package com.trodix.todoapi.core.entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.trodix.todoapi.entity.Todo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

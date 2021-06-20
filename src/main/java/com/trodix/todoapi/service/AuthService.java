@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.trodix.todoapi.entity.ERole;
-import com.trodix.todoapi.entity.RefreshToken;
-import com.trodix.todoapi.entity.Role;
-import com.trodix.todoapi.entity.User;
-import com.trodix.todoapi.exception.BadRequestException;
+import com.trodix.todoapi.core.entity.ERole;
+import com.trodix.todoapi.core.entity.RefreshToken;
+import com.trodix.todoapi.core.entity.Role;
+import com.trodix.todoapi.core.entity.User;
+import com.trodix.todoapi.core.exception.BadRequestException;
 import com.trodix.todoapi.model.request.LoginRequest;
 import com.trodix.todoapi.model.request.LogoutRequest;
 import com.trodix.todoapi.model.request.RefreshTokenRequest;

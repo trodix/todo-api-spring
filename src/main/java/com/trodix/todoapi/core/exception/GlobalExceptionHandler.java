@@ -1,4 +1,4 @@
-package com.trodix.todoapi.exception;
+package com.trodix.todoapi.core.exception;
 
 import java.io.IOException;
 import java.util.List;

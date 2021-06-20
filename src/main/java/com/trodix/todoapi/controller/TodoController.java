@@ -2,8 +2,8 @@ package com.trodix.todoapi.controller;
 
 import java.util.UUID;
 
+import com.trodix.todoapi.core.exception.ResourceNotFoundException;
 import com.trodix.todoapi.entity.Todo;
-import com.trodix.todoapi.exception.ResourceNotFoundException;
 import com.trodix.todoapi.mapping.TodoMapper;
 import com.trodix.todoapi.model.request.TodoRequest;
 import com.trodix.todoapi.model.response.TodoResponse;
@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,8 +60,7 @@ public class TodoController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public Iterable<TodoResponse> getAll() {
-        Iterable<Todo> result = todoService.getAll();
-
+        Iterable<Todo> result = todoService.getAllByUser();
         Iterable<TodoResponse> response = todoMapper.entityListToModel(result);
 
         return response;
@@ -73,12 +73,12 @@ public class TodoController {
         Todo todo = todoMapper.modelToEntity(todoRequest);
         todo = todoService.create(todo);
         TodoResponse response = todoMapper.entityToModel(todo);
-        
+
         return response;
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("@creatorChecker.check(T(com.trodix.todoapi.entity.Todo), #id) or hasRole('MODERATOR') or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public TodoResponse update(@PathVariable("id") UUID id, @RequestBody TodoRequest todoRequest) {
         Todo todo = todoMapper.modelToEntity(todoRequest);
@@ -91,7 +91,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("@creatorChecker.check(T(com.trodix.todoapi.entity.Todo), #id) or hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") UUID id) {
         Boolean isDeleted = todoService.delete(id);

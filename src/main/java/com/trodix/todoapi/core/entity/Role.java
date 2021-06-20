@@ -1,4 +1,4 @@
-package com.trodix.todoapi.entity;
+package com.trodix.todoapi.core.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

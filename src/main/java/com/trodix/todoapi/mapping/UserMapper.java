@@ -1,6 +1,6 @@
 package com.trodix.todoapi.mapping;
 
-import com.trodix.todoapi.entity.User;
+import com.trodix.todoapi.core.entity.User;
 import com.trodix.todoapi.model.request.UserPublicRequest;
 import com.trodix.todoapi.model.response.UserPublicResponse;
 

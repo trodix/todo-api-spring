@@ -8,13 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.trodix.todoapi.core.entity.User;
+import com.trodix.todoapi.core.interfaces.Ownable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AccessLevel;
 
 @Entity
 @Getter @Setter	
-public class Todo {
+public class Todo implements Ownable {
 	
 	@Setter(AccessLevel.PROTECTED)
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)

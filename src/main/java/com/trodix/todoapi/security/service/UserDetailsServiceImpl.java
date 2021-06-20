@@ -1,6 +1,6 @@
 package com.trodix.todoapi.security.service;
 
-import com.trodix.todoapi.entity.User;
+import com.trodix.todoapi.core.entity.User;
 import com.trodix.todoapi.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

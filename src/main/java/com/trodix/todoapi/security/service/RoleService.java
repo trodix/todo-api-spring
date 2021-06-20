@@ -3,8 +3,8 @@ package com.trodix.todoapi.security.service;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.trodix.todoapi.entity.ERole;
-import com.trodix.todoapi.entity.Role;
+import com.trodix.todoapi.core.entity.ERole;
+import com.trodix.todoapi.core.entity.Role;
 import com.trodix.todoapi.repository.RoleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

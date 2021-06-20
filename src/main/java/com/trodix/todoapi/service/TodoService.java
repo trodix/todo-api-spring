@@ -3,9 +3,9 @@ package com.trodix.todoapi.service;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.trodix.todoapi.core.entity.User;
+import com.trodix.todoapi.core.exception.ResourceNotFoundException;
 import com.trodix.todoapi.entity.Todo;
-import com.trodix.todoapi.entity.User;
-import com.trodix.todoapi.exception.ResourceNotFoundException;
 import com.trodix.todoapi.repository.TodoRepository;
 import com.trodix.todoapi.security.service.UserDetailsServiceImpl;
 
@@ -34,6 +34,16 @@ public class TodoService {
 
     public Iterable<Todo> getAll() {
         return this.todoRepository.findAll();
+    }
+
+    public Iterable<Todo> getAllByUser() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        User user = userDetailsService.loadUserEntityByUsername(currentPrincipalName);
+
+        return this.todoRepository.findByUser(user);
     }
 
     public Todo create(Todo todo) {

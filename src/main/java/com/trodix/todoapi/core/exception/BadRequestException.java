@@ -1,4 +1,4 @@
-package com.trodix.todoapi.exception;
+package com.trodix.todoapi.core.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

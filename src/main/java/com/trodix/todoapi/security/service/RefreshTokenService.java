@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
-import com.trodix.todoapi.entity.RefreshToken;
-import com.trodix.todoapi.entity.User;
-import com.trodix.todoapi.exception.UnauthorizedException;
+import com.trodix.todoapi.core.entity.RefreshToken;
+import com.trodix.todoapi.core.entity.User;
+import com.trodix.todoapi.core.exception.UnauthorizedException;
 import com.trodix.todoapi.repository.RefreshTokenRepository;
 import com.trodix.todoapi.repository.UserRepository;
 

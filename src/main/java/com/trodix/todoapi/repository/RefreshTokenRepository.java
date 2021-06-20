@@ -2,7 +2,7 @@ package com.trodix.todoapi.repository;
 
 import java.util.Optional;
 
-import com.trodix.todoapi.entity.RefreshToken;
+import com.trodix.todoapi.core.entity.RefreshToken;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
