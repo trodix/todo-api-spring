@@ -59,7 +59,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Todo> todos = new ArrayList<Todo>();
+    private List<Todo> todos = new ArrayList<>();
 
     public User(String username, String email, String password) {
         this.username = username;
